@@ -10,10 +10,12 @@ public class EventManager : MonoBehaviour
 	{
 		//it's weird that this is here - should be in controller
 		//interact
-		if (Input.GetButton ("Interact")) 
+		if (Input.GetButtonDown ("Interact")) 
 		{
-			if(OnRequestInteract != null)
-				OnRequestInteract();
-		}
+			if (OnRequestInteract != null) 
+			{
+				OnRequestInteract ();
+			}
+		} 
 	}
 }
