@@ -20,7 +20,8 @@ public class Controller : MonoBehaviour
 		if (controller.isGrounded) 
 		{
 			moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-			moveDirection = transform.TransformDirection(moveDirection);
+			moveDirection = Quaternion.LookRotation (ScriptFuncs.FlattenY(GameObject.Find ("camera").transform.forward)) * moveDirection;
+		
 			moveDirection *= speed;
 
 			if (Input.GetButton("Jump"))
