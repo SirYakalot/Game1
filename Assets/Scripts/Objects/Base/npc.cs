@@ -10,14 +10,15 @@ public class npc : MonoBehaviour {
 
 	void OnEnable()
 	{
-		EventManager.OnRequestInteract += RequestedInteract;
+		//EventManager.OnRequestInteract += RequestedInteract;
+		Globals.allNpcs.Add(this);
 	}
 
 
-	void OnDisable()
-	{
-		EventManager.OnRequestInteract -= RequestedInteract;
-	}
+//	void OnDisable()
+//	{
+//		EventManager.OnRequestInteract -= RequestedInteract;
+//	}
 
 	void Update()
 	{
@@ -26,19 +27,27 @@ public class npc : MonoBehaviour {
 	}
 
 	//shouldn't this be override?
-	protected virtual void RequestedInteract ()
+	public virtual void RequestedInteract ()
 	{
 		print(interact);
+
 	}
 
-	protected virtual void WalkedAwayFrom ()
+	//each one of these should be a state - update and start: so you can set little behaviours when things happen. dialogue should be a separate coroutine?
+	//
+	public virtual void WalkedAwayFrom ()
 	{
 		print(walkedAwayFrom);
 	}
 
-	protected virtual void Approached ()
+	public virtual void Approached ()
 	{
 		print(approached);
+	}
+
+	void OnGUI() 
+	{
+
 	}
 
 	//PATTERN - the responses allw you to express your feelings as a player, whether that's total roleplay or

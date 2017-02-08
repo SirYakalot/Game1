@@ -12,6 +12,8 @@ public class Controller : MonoBehaviour
 
 	private Vector3 moveDirection = Vector3.zero;
 
+	public Transform thisCamera;
+
 	void Update() 
 	{
 		//movement
@@ -20,7 +22,7 @@ public class Controller : MonoBehaviour
 		if (controller.isGrounded) 
 		{
 			moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-			moveDirection = Quaternion.LookRotation (ScriptFuncs.FlattenY(GameObject.Find ("camera").transform.forward)) * moveDirection;
+			moveDirection = Quaternion.LookRotation (ScriptFuncs.FlattenY(thisCamera.transform.forward)) * moveDirection;
 		
 			moveDirection *= speed;
 

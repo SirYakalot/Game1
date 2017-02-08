@@ -14,4 +14,22 @@ public static class ScriptFuncs
 	{
 		return new Vector3 (vector.x, 0.0f, vector.z);
 	}
+		
+	public static npc GetNearestNpc()
+	{
+		npc closestNpc = null;
+		float distanceToNearestNpc = 99999.9f;
+
+		//work out the closest npc and 
+		foreach (npc thisNpc in Globals.allNpcs)
+		{
+			float distanceToCurrentNpc = Vector3.Distance(Globals.Player.transform.position, thisNpc.transform.position);
+			if ( distanceToCurrentNpc < distanceToNearestNpc )
+			{
+				closestNpc = thisNpc;
+				distanceToNearestNpc = distanceToCurrentNpc;
+			}
+		}
+		return closestNpc;
+	}
 }

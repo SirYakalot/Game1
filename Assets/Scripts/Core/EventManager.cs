@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EventManager : MonoBehaviour 
 {
-	public delegate void InteractAction();
-	public static event InteractAction OnRequestInteract;
+//	public delegate void InteractAction();
+//	public static event InteractAction OnRequestInteract;
+
+
 
 	void Update ()
 	{
@@ -12,10 +15,12 @@ public class EventManager : MonoBehaviour
 		//interact
 		if (Input.GetButtonDown ("Interact")) 
 		{
-			if (OnRequestInteract != null) 
-			{
-				OnRequestInteract ();
-			}
+//			if (OnRequestInteract != null) 
+//			{
+//				OnRequestInteract ();
+//			}
+
+			ScriptFuncs.GetNearestNpc().RequestedInteract();
 		} 
 	}
 }
