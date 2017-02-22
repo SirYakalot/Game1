@@ -8,13 +8,23 @@ public class npc : MonoBehaviour {
 	protected string walkedAwayFrom;
 	protected string approached;
 
+	private bool justgotclicked = false;
+
+	public void thisFunc()
+	{
+		justgotclicked = true;
+	}
+
 	void OnEnable()
 	{
-		//EventManager.OnRequestInteract += RequestedInteract;
+		EventManager.OnRequestInteract += thisFunc;
 		Globals.allNpcs.Add(this);
 	}
 
-
+	public void Init()
+	{
+		StartCoroutine(Interact());
+	}
 //	void OnDisable()
 //	{
 //		EventManager.OnRequestInteract -= RequestedInteract;
@@ -26,11 +36,15 @@ public class npc : MonoBehaviour {
 		// - and call walked away from and aproached
 	}
 
-	//shouldn't this be override?
-	public virtual void RequestedInteract ()
+	public virtual IEnumerator Interact()
 	{
 		print(interact);
-
+		yield return new WaitUntil(() => justgotclicked);//the event managers func should return true or false
+		print("Welcome to Asher's game");
+//		yield return new WaitUntil(() => thisFunc());//either wrap this as a lamda function or just use an event
+//		print("Might not be much yet but...");
+//		yield return new WaitUntil(() => thisFunc());
+//		print("It's gonna get there man");
 	}
 
 	//each one of these should be a state - update and start: so you can set little behaviours when things happen. dialogue should be a separate coroutine?

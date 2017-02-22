@@ -29,6 +29,7 @@ public class eve : npc
 		interact = "Hey";
 		walkedAwayFrom = "Bye then";
 		approached = "";
+		Init();//don't want to have to do this here
 	}
 	
 	// Update is called once per frame
