@@ -17,11 +17,23 @@ public static class ScriptFuncs
         return new Vector3(vector.x, 0.0f, vector.z);
     }
 
-    //kStrength of 1 would move the spring back to the start pos every frame. < 1 more gradual.
-    public static float Spring(float xDistFromStart, float kStrength)
+    public static float Spring(float xDistFromRest, float kStrength)
     {
-        float fForce = -kStrength * xDistFromStart;
+        float fForce = -kStrength * xDistFromRest;
         return fForce;
+    }
+
+    public static void SpringObjectLinear(Vector3 springOrigin, GameObject obj, float kStrength, float mass)
+    {
+        // / mass to work out acceleration, then apply delta time to that.  
+        float distFromRest = springOrigin.x - obj.transform.position.x;
+        float f = Spring(distFromRest, kStrength);
+        float acceleration = f / mass;
+
+        float delta = acceleration * Time.deltaTime;
+
+        float temp = obj.transform.position.x + delta;
+        obj.transform.position = new Vector3(temp, obj.transform.position.y, obj.transform.position.z);
     }
 
     // AI stuff------------------------------
