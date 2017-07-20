@@ -35,7 +35,7 @@ public static class ScriptFuncs
 
 
 
-        return (speed + acceleration);// * Time.deltaTime;
+        return (speed + acceleration);
     }
 
     // AI stuff------------------------------

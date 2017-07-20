@@ -12,8 +12,7 @@ public class SpringCamera : MonoBehaviour
     private void Update()
     {
         speed = ScriptFuncs.SpringObjectLinear(speed, thisThing, this.gameObject, strength, mass);
-        print(transform.position);
 
-        transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y, transform.position.z);
     }
 }
