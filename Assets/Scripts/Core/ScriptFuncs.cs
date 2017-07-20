@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class ScriptFuncs
 {
@@ -17,17 +15,16 @@ public static class ScriptFuncs
         return new Vector3(vector.x, 0.0f, vector.z);
     }
 
-    public static float Spring(float xDistFromRest, float kStrength)
+    public static float Spring(float xDistFromRest, float kStrength, float cDamping, float velocity)
     {
-        float fForce = -kStrength * xDistFromRest;
-        return fForce;
+        return -kStrength * xDistFromRest - cDamping * velocity;
     }
 
-    public static float SpringObjectLinear(float speed, Vector3 springOrigin, GameObject obj, float kStrength, float mass)
+    public static float SpringObjectLinear(float speed, Vector3 springOrigin, GameObject obj, float kStrength, float mass, float damping, float velocity)
     {
-        // / mass to work out acceleration, then apply delta time to that.  
+        // mass to work out acceleration, then apply delta time to that.  
         float distFromRest = obj.transform.position.x - springOrigin.x;
-        float f = Spring(distFromRest, kStrength);
+        float f = Spring(distFromRest, kStrength, damping, velocity);
 
 
         //this needs to calculate momentum
