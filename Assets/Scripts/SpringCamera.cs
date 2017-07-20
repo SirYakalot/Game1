@@ -7,9 +7,13 @@ public class SpringCamera : MonoBehaviour
     private Vector3 thisThing = new Vector3();
     public float strength = 0.0f;
     public float mass = 0.0f;
+    public float speed = 0.0f;
 
     private void Update()
     {
-        ScriptFuncs.SpringObjectLinear(thisThing, this.gameObject, strength, mass);
+        speed = ScriptFuncs.SpringObjectLinear(speed, thisThing, this.gameObject, strength, mass);
+        print(transform.position);
+
+        transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
     }
 }

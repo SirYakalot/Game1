@@ -23,17 +23,19 @@ public static class ScriptFuncs
         return fForce;
     }
 
-    public static void SpringObjectLinear(Vector3 springOrigin, GameObject obj, float kStrength, float mass)
+    public static float SpringObjectLinear(float speed, Vector3 springOrigin, GameObject obj, float kStrength, float mass)
     {
         // / mass to work out acceleration, then apply delta time to that.  
         float distFromRest = obj.transform.position.x - springOrigin.x;
         float f = Spring(distFromRest, kStrength);
+
+
+        //this needs to calculate momentum
         float acceleration = f / mass;
 
-        float delta = acceleration * Time.deltaTime;
 
-        float temp = obj.transform.position.x + delta;
-        obj.transform.position = new Vector3(temp, obj.transform.position.y, obj.transform.position.z);
+
+        return (speed + acceleration);// * Time.deltaTime;
     }
 
     // AI stuff------------------------------
