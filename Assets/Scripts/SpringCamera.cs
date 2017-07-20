@@ -2,24 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpringCamera : MonoBehaviour {
+public class SpringCamera : MonoBehaviour
+{
+    private Vector3 springAnchor = new Vector3();
+    private Vector3 prevPos;
+    private float speed = 0.0f;
 
-    public object focus;
-    private Transform startLoc;
-    private float temp;
-	// Use this for initialization
-	void Start () {
-        startLoc = transform;
-        temp = transform.position.x + 3.0f;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    public float strength = 1.0f;
+    public float mass = 1.0f;
+    public float damping = 1.0f;
+
+    private void Start()
     {
-        float distFromSpringPos = transform.position.x - temp;
-        float delta = ScriptFuncs.Spring(distFromSpringPos, 1.0f);
-        delta *= Time.deltaTime;
+        prevPos = transform.position;
+    }
 
-        transform.position = new Vector3(transform.position.x + delta, transform.position.y, transform.position.z);
-	}
+    private void Update()
+    {
+        float velocity = (transform.position - prevPos).x;
+        print(velocity);
+        prevPos = transform.position;
+        speed = ScriptFuncs.SpringObjectLinear(speed, springAnchor, this.gameObject, strength, mass, damping, velocity);
+
+        transform.position = new Vector3(transform.position.x + (speed * Time.deltaTime), transform.position.y, transform.position.z);
+    }
 }
