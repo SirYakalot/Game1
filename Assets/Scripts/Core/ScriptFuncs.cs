@@ -26,7 +26,7 @@ public static class ScriptFuncs
     public static void SpringObjectLinear(Vector3 springOrigin, GameObject obj, float kStrength, float mass)
     {
         // / mass to work out acceleration, then apply delta time to that.  
-        float distFromRest = springOrigin.x - obj.transform.position.x;
+        float distFromRest = obj.transform.position.x - springOrigin.x;
         float f = Spring(distFromRest, kStrength);
         float acceleration = f / mass;
 
