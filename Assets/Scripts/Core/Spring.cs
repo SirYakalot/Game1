@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpringCamera : MonoBehaviour
+public class Spring : MonoBehaviour
 {
     private Vector3 springAnchor = new Vector3();
     private Vector3 prevPos;

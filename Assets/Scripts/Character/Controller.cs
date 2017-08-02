@@ -29,7 +29,7 @@ public class Controller : MonoBehaviour
 
 	private float jumpOffPoint;
 
-	void Update() 
+	void FixedUpdate() 
 	{
 		//movement
 		CharacterController controller = GetComponent<CharacterController>();
