@@ -35,8 +35,8 @@ public class eve : npc
 	// Update is called once per frame
 	void Update () 
 	{
-		
-	}
+        gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "TEST THIS!";
+    }
 
 	//reverts back to this when any other behaviour finishes 
 //	protected override IEnumerable //Default_start ()
