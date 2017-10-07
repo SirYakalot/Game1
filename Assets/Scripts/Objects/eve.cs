@@ -32,6 +32,8 @@ using UnityEngine;
 // very simply one of the things that you can do is ask any character about any other. going forward maybe you have to meet the characters to be able to bring them up. or you get told about them. 
 // so someone could lie to you, when you ask about them they've never heard of them
 // you should be able to compose your sentences by choosing the components - do 'you / they / she' 'like / hate' 'you / them' etc... (knowing what others think of them is probably a bit advanced)
+
+// allow the plkayer to always use the question system wherevber you are - contextual stuff is.... undesirable. if you can always do it it allows self epxression
 public class eve : npc
 {
 	// Use this for initialization
