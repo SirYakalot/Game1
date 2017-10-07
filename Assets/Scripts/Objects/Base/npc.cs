@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class npc : MonoBehaviour {
 
-	protected string interact;
+    public GameObject friendCharacter;
+
+    protected string interact;
 	protected string walkedAwayFrom;
 	protected string approached;
 
@@ -40,12 +42,12 @@ public class npc : MonoBehaviour {
 	{
 		print(interact);
 		yield return new WaitUntil(() => justgotclicked);//the event managers func should return true or false
-		print("Welcome to Asher's game");
-//		yield return new WaitUntil(() => thisFunc());//either wrap this as a lamda function or just use an event
-//		print("Might not be much yet but...");
-//		yield return new WaitUntil(() => thisFunc());
-//		print("It's gonna get there man");
-	}
+        gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "I like" + friendCharacter;
+        //		yield return new WaitUntil(() => thisFunc());//either wrap this as a lamda function or just use an event
+        //		print("Might not be much yet but...");
+        //		yield return new WaitUntil(() => thisFunc());
+        //		print("It's gonna get there man");
+    }
 
 	//each one of these should be a state - update and start: so you can set little behaviours when things happen. dialogue should be a separate coroutine?
 	//

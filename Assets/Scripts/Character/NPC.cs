@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour {
 
+    public bool likesAdam;
+
 	// Use this for initialization
 	void Start () {
 		

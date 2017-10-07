@@ -21,7 +21,18 @@ using UnityEngine;
 
 //something like a punch would actually change the set, and the script table, so ouch would transition the set to something else. a different mood set. 
 //so each state can advance its own story whithin the script table without having to create a new set for it. each set has a story essentially. 
-public class eve : npc 
+
+
+
+// query relationships 
+
+//game starts off - travelling matchmaker. little puzzle game where you have to solve each level by finding the two people who like each other. it soon twists and turns into a strange murder mystery. 
+
+
+// very simply one of the things that you can do is ask any character about any other. going forward maybe you have to meet the characters to be able to bring them up. or you get told about them. 
+// so someone could lie to you, when you ask about them they've never heard of them
+// you should be able to compose your sentences by choosing the components - do 'you / they / she' 'like / hate' 'you / them' etc... (knowing what others think of them is probably a bit advanced)
+public class eve : npc
 {
 	// Use this for initialization
 	void Start () 
@@ -35,7 +46,7 @@ public class eve : npc
 	// Update is called once per frame
 	void Update () 
 	{
-        gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "TEST THIS!";
+       
     }
 
 	//reverts back to this when any other behaviour finishes 
