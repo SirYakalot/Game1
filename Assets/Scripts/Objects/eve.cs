@@ -34,6 +34,9 @@ using UnityEngine;
 // you should be able to compose your sentences by choosing the components - do 'you / they / she' 'like / hate' 'you / them' etc... (knowing what others think of them is probably a bit advanced)
 
 // allow the plkayer to always use the question system wherevber you are - contextual stuff is.... undesirable. if you can always do it it allows self epxression
+
+// a ratings system would allow you to model change, but it's not really necessary for now. these relationships can be set per character in a binery way 
+//     - because the real point is simply that you have to ask questions to figure out the web of relationships.
 public class eve : npc
 {
 	// Use this for initialization
