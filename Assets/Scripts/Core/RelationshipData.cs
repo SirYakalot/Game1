@@ -6,7 +6,13 @@ using UnityEngine;
 [System.Serializable]
 public class RelationshipData
 {
+    public string name;
     //allow both
     public bool like;
     public bool hate;
+
+    public RelationshipData(string name)
+    {
+        this.name = name;
+    }
 }
