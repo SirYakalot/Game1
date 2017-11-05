@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UnityEngine;
 
 public class npc : MonoBehaviour {
@@ -19,7 +19,7 @@ public class npc : MonoBehaviour {
 
 	void OnEnable()
 	{
-		EventManager.OnRequestInteract += thisFunc;
+		InteractManager.OnRequestInteract += thisFunc;
 		Globals.allNpcs.Add(this);
 	}
 
@@ -40,13 +40,9 @@ public class npc : MonoBehaviour {
 
 	public virtual IEnumerator Interact()
 	{
-		print(interact);
 		yield return new WaitUntil(() => justgotclicked);//the event managers func should return true or false
-        gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "I like" + friendCharacter;
-        //		yield return new WaitUntil(() => thisFunc());//either wrap this as a lamda function or just use an event
-        //		print("Might not be much yet but...");
-        //		yield return new WaitUntil(() => thisFunc());
-        //		print("It's gonna get there man");
+        gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "I like " + friendCharacter;
+        
     }
 
 	//each one of these should be a state - update and start: so you can set little behaviours when things happen. dialogue should be a separate coroutine?

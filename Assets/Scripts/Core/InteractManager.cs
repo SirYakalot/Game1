@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+//using System.Collections;
+//using System.Collections.Generic;
 
-public class EventManager : MonoBehaviour 
+public class InteractManager : MonoBehaviour 
 {
 	public delegate void InteractAction();
 	public static event InteractAction OnRequestInteract;//I think I can call this and it will call the delegate in my class?
-
-
 
 	void Update ()
 	{
