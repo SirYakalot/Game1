@@ -8,7 +8,7 @@ public class RelationshipInfo : MonoBehaviour {
 
     //relationship data is very systemic, with default reactions, but these get overridden in each character. so you 'script' the individual lines, but they will react to hating multiple characters in the same way 
     
-    public List<npc> relationshipKeys;
+    [HideInInspector] public List<npc> relationshipKeys;
     public List<RelationshipData> relationshipValues;
 
     // Update is called once per frame
