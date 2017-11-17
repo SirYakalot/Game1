@@ -14,13 +14,18 @@ public class Communication : StateScript {
         questions.Add("Do you like");
         questions.Add("Have you seen");
 
+        (Go RunInputLogic());
+	}
+
+    void RunInputLogic ()
+    {
         while (true)
         {
             //wait for input either iterate through the names or select
 
             //when selected - use the target chooser to ask the question
         }
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

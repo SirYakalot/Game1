@@ -16,7 +16,14 @@ public class StateScript : MonoBehaviour {
 		updateFunc();
 	}
 
-	protected void Go(StartFunc newStart, UpdateFunc newUpdate)
+    protected void Go(StartFunc newStart)
+    {
+        StopCoroutine(startFunc());
+        startFunc = newStart;
+        StartCoroutine(newStart());
+    }
+
+    protected void Go(StartFunc newStart, UpdateFunc newUpdate)
 	{
 		StopCoroutine (startFunc());
 		startFunc = newStart;
