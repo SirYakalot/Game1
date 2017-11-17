@@ -11,7 +11,6 @@ public class StateScript : MonoBehaviour {
 	UpdateFunc updateFunc;
 	StartFunc  startFunc;
 	
-	// Update is called once per frame
 	void Update () 
 	{
 		updateFunc();
