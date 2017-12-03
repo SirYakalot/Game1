@@ -6,39 +6,45 @@ using System;
 public class StateScript : MonoBehaviour {
 
 	protected delegate void UpdateFunc();
-	protected delegate IEnumerator StartFunc ();
+	//protected delegate IEnumerator StartFunc ();
+    //todo the first state should be called init or something, and then the function pointers can always point to them.
 
+    //modify so that start is guaranteed to run for one frame before update kicks in. 
 	// do we really need these? 
 	UpdateFunc updateFunc;
-	StartFunc  startFunc;
+	protected IEnumerator startFunc;
 	
 	void Update () 
 	{
-		//updateFunc();
-	}
-
-    protected void Go(StartFunc newStart)
-    {
-        //StopCoroutine(startFunc());
-
-        startFunc = newStart;
-        StartCoroutine(startFunc());
+        if (updateFunc != null)
+            updateFunc();
     }
 
-    protected void Go(StartFunc newStart, UpdateFunc newUpdate)
-	{
-		StopCoroutine (startFunc());
+    protected void Go(IEnumerator newStart)
+    {
+        if (startFunc != null)
+            StopCoroutine(startFunc);
 
-		startFunc = newStart;
-		StartCoroutine (newStart());
+        startFunc = newStart;
+        StartCoroutine(newStart);
+    }
 
-		updateFunc = newUpdate;
-	}
+    protected void Go(IEnumerator newStart, UpdateFunc newUpdate)
+    {
+        if (startFunc != null)
+            StopCoroutine(startFunc);
 
-	protected void Go(UpdateFunc newUpdate)
-	{
-		StopCoroutine (startFunc());
+        startFunc = newStart;
+        StartCoroutine(newStart);
 
-		updateFunc = newUpdate;
-	}
+        updateFunc = newUpdate;
+    }
+
+    protected void Go(UpdateFunc newUpdate)
+    {
+        if (startFunc != null)
+            StopCoroutine(startFunc);
+
+        updateFunc = newUpdate;
+    }
 }

@@ -5,31 +5,37 @@ using UnityEngine;
 public class Communication : StateScript {
 
     //[do you like] iterate through all names - do you like jack?
-    //private List<string> questions;
+    private List<string> questions;
 
 	// Use this for initialization
 	void Start ()
     {
-       // questions.Add("Do you like");
-       // questions.Add("Have you seen");
+        questions.Add("Do you like");
+        questions.Add("Have you seen");
 
-        Go (MenuClosed);
-	}
+        Go(OpenMenu(), UpdateTest);
+    }
 
     private IEnumerator MenuClosed()
     {
-        print("IT'S ALIIIIIVE");
         yield return new WaitUntil(() => Input.GetButton("CommsMenu"));
-        print("yeah babay");
-        //(Go OpenMenu());
+        
+        yield return new WaitForSeconds(1.0f);
     }
 
-    // virtual IEnumerator OpenMenu ()
-    // {
-    //     // play some menu opening anim NOTE - might be nice to play this async actually... so that you can still interact with the menu while it opens
-    //     // remember to ignore the button being held though...
-    //     (Go MenuActive());
-    // }
+    private void UpdateTest()
+    {
+        print("yeah babay");
+    }
+
+    private IEnumerator OpenMenu()
+    {
+        print("and ever higher");
+        yield return 0;
+        // play some menu opening anim NOTE - might be nice to play this async actually... so that you can still interact with the menu while it opens
+        // remember to ignore the button being held though...
+        //(Go MenuActive());
+    }
 
     // virtual IEnumerator MenuActive ()
     // {
