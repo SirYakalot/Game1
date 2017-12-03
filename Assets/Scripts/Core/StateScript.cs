@@ -8,26 +8,36 @@ public class StateScript : MonoBehaviour {
 	protected delegate void UpdateFunc();
 	protected delegate IEnumerator StartFunc ();
 
+	// do we really need these? 
 	UpdateFunc updateFunc;
 	StartFunc  startFunc;
 	
 	void Update () 
 	{
-		updateFunc();
+		//updateFunc();
 	}
 
     protected void Go(StartFunc newStart)
     {
-        StopCoroutine(startFunc());
+        //StopCoroutine(startFunc());
+
         startFunc = newStart;
-        StartCoroutine(newStart());
+        StartCoroutine(startFunc());
     }
 
     protected void Go(StartFunc newStart, UpdateFunc newUpdate)
 	{
 		StopCoroutine (startFunc());
+
 		startFunc = newStart;
 		StartCoroutine (newStart());
+
+		updateFunc = newUpdate;
+	}
+
+	protected void Go(UpdateFunc newUpdate)
+	{
+		StopCoroutine (startFunc());
 
 		updateFunc = newUpdate;
 	}
