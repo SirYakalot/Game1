@@ -6,6 +6,7 @@ public class Communication : StateScript {
 
     //[do you like] iterate through all names - do you like jack?
     private List<string> questions = new List<string>();
+    private int currentIndex = 0;
 
 	// Use this for initialization
 	void Start ()
@@ -87,7 +88,7 @@ public class Communication : StateScript {
     private IEnumerator SpeakSentence()
     {
         //use all the currently selected pieces of the sentence to action it
-        print("speak");
+        print(questions[Mathf.Abs((questions.Count + currentIndex) % questions.Count)]);
         Go(MenuClosed());
         yield return 0;
     }
@@ -97,6 +98,7 @@ public class Communication : StateScript {
         //for now just cycle through the names? using 'do you like'. 
         //select the new person
         print("up");
+        currentIndex++;
         Go(MenuActive());
         yield return 0;
     }
@@ -105,6 +107,7 @@ public class Communication : StateScript {
     {
         //select the new person
         print("down");
+        currentIndex--;
         Go(MenuActive());
         yield return 0;
     }
