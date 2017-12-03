@@ -5,7 +5,7 @@ using UnityEngine;
 public class Communication : StateScript {
 
     //[do you like] iterate through all names - do you like jack?
-    private List<string> questions;
+    private List<string> questions = new List<string>();
 
 	// Use this for initialization
 	void Start ()
@@ -13,92 +13,99 @@ public class Communication : StateScript {
         questions.Add("Do you like");
         questions.Add("Have you seen");
 
-        Go(OpenMenu(), UpdateTest);
+        Go(MenuClosed());
     }
 
     private IEnumerator MenuClosed()
     {
-        yield return new WaitUntil(() => Input.GetButton("CommsMenu"));
-        
-        yield return new WaitForSeconds(1.0f);
-    }
-
-    private void UpdateTest()
-    {
-        print("yeah babay");
+        print("menu closed");
+        yield return new WaitUntil(() => Input.GetButtonDown("CommsMenu"));
+        yield return new WaitUntil(() => Input.GetButtonUp("CommsMenu"));
+        Go(OpenMenu());
     }
 
     private IEnumerator OpenMenu()
     {
-        print("and ever higher");
-        yield return 0;
         // play some menu opening anim NOTE - might be nice to play this async actually... so that you can still interact with the menu while it opens
         // remember to ignore the button being held though...
-        //(Go MenuActive());
+        print("menu open");
+        Go(MenuActive());
+        yield return 0;
     }
 
-    // virtual IEnumerator MenuActive ()
-    // {
-    //     while (true)
-    //     {
-    //         yeild return new WaitUntil(() => 
-    //             (Input.GetButton("CommsMenu") || 
-    //              Input.GetButton("Select") ||
-    //              Input.GetButton("SelectUp") ||
-    //              Input.GetButton("SelectDown") ||
-    //              Input.GetButton("SelectLeft") ||
-    //              Input.GetButton("SelectRight"));
+    private IEnumerator MenuActive()
+    {
+        print("and active");
+        while (true)
+        {
+            yield return new WaitUntil(() =>
+                (Input.GetButton("CommsMenu") ||
+                 Input.GetButton("Select") ||
+                 Input.GetButton("SelectUp") ||
+                 Input.GetButton("SelectDown") ||
+                 Input.GetButton("SelectLeft") ||
+                 Input.GetButton("SelectRight")));
 
-    //         if (Input.GetButton("CommsMenu")) {
-    //             (Go CloseMenu());
-    //         }
-    //         else if (Input.GetButton("Select")) {
-    //             (Go SpeakSentence());
-    //         }
-    //         else if (Input.GetButton("SelectUp")) {
-    //             (Go CycleCurrentOptionUp());
-    //         }
-    //         else if (Input.GetButton("SelectDown")) {
-    //             (Go CycleCurrentOptionDown());
-    //         }
-    //         // else if (Input.GetButton("SelectLeft")) {
+            if (Input.GetButton("CommsMenu"))
+            {
+                yield return new WaitUntil(() => Input.GetButtonUp("CommsMenu"));
+                Go(CloseMenu());
+            }
+            else if (Input.GetButton("Select"))
+            {
+                yield return new WaitUntil(() => Input.GetButtonUp("Select"));
+                Go(SpeakSentence());
+            }
+            else if (Input.GetButton("SelectUp"))
+            {
+                yield return new WaitUntil(() => Input.GetButtonUp("SelectUp"));
+                Go(CycleCurrentOptionUp());
+            }
+            else if (Input.GetButton("SelectDown"))
+            {
+                yield return new WaitUntil(() => Input.GetButtonUp("SelectDown"));
+                Go(CycleCurrentOptionDown());
+            }
+            // else if (Input.GetButton("SelectLeft")) {
 
-    //         // }
-    //         // else if (Input.GetButton("SelectRight")) {
+            // }
+            // else if (Input.GetButton("SelectRight")) {
 
-    //         // }
-    //         yield return new WaitFrames(1);
-    //         //when selected - use the target chooser to ask the question
-    //     }
-    // }
+            // }
+            yield return new WaitForSeconds(1.0f);
+            //when selected - use the target chooser to ask the question
+        }
+    }
 
-    // virtual IEnumerator CloseMenu ()
-    // {
-    //     (Go MenuClosed());
-    // }
+    private IEnumerator CloseMenu()
+    {
+        print("closing menu");
+        Go(MenuClosed());
+        yield return 0;
+    }
 
-    // virtual IEnumerator SpeakSentence ()
-    // {
-    //     //use all the currently selected pieces of the sentence to action it
-    // }
+    private IEnumerator SpeakSentence()
+    {
+        //use all the currently selected pieces of the sentence to action it
+        print("speak");
+        Go(MenuClosed());
+        yield return 0;
+    }
 
-    // virtual IEnumerator CycleCurrentOptionUp ()
-    // {
-    //     //for now just cycle through the names? using 'do you like'. 
-    //     //select the new person
-    //     yield return new WaitUntil(() => Input.GetButtonUp("SelectUp"));
-    //     (Go MenuActive());
-    // }
+    private IEnumerator CycleCurrentOptionUp()
+    {
+        //for now just cycle through the names? using 'do you like'. 
+        //select the new person
+        print("up");
+        Go(MenuActive());
+        yield return 0;
+    }
 
-    // virtual IEnumerator CycleCurrentOptionDown ()
-    // {
-    //     //select the new person
-    //     yield return new WaitUntil(() => Input.GetButtonUp("SelectDown"));
-    //     (Go MenuActive());
-    // }
-
-    // // Update is called once per frame
-    // void Update () {
-
-    // }
+    private IEnumerator CycleCurrentOptionDown()
+    {
+        //select the new person
+        print("down");
+        Go(MenuActive());
+        yield return 0;
+    }
 }

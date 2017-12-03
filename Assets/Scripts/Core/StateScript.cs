@@ -27,6 +27,8 @@ public class StateScript : MonoBehaviour {
 
         startFunc = newStart;
         StartCoroutine(newStart);
+
+        updateFunc = null;
     }
 
     protected void Go(IEnumerator newStart, UpdateFunc newUpdate)
