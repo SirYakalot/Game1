@@ -37,6 +37,7 @@ public class Communication : StateScript {
     private IEnumerator MenuActive()
     {
         print("and active");
+        gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = questions[Mathf.Abs((questions.Count + currentIndex) % questions.Count)];
         while (true)
         {
             yield return new WaitUntil(() =>
