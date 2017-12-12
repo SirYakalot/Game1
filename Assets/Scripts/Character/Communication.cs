@@ -6,13 +6,18 @@ public class Communication : StateScript {
 
     //[do you like] iterate through all names - do you like jack?
     private List<string> questions = new List<string>();
-    private int currentIndex = 0;
+    private List<string> names = new List<string>();
+    private int currentQuestionIndex = 0;
+    private int currentNameIndex = 0;
 
 	// Use this for initialization
 	void Start ()
     {
         questions.Add("Do you like");
         questions.Add("Have you seen");
+
+        names.Add("Ash");
+        names.Add("Steve");
 
         Go(MenuClosed());
     }
@@ -37,7 +42,11 @@ public class Communication : StateScript {
     private IEnumerator MenuActive()
     {
         print("and active");
-        gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = questions[Mathf.Abs((questions.Count + currentIndex) % questions.Count)];
+        gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = 
+            (
+                questions[Mathf.Abs((questions.Count + currentQuestionIndex) % questions.Count)] + " " +
+                names[Mathf.Abs((names.Count + currentNameIndex) % names.Count)]
+            );
         while (true)
         {
             yield return new WaitUntil(() =>
@@ -68,12 +77,14 @@ public class Communication : StateScript {
                 yield return new WaitUntil(() => Input.GetButtonUp("SelectDown"));
                 Go(CycleCurrentOptionDown());
             }
-            // else if (Input.GetButton("SelectLeft")) {
-
-            // }
-            // else if (Input.GetButton("SelectRight")) {
-
-            // }
+            else if (Input.GetButton("SelectLeft")) {
+                yield return new WaitUntil(() => Input.GetButtonUp("SelectLeft"));
+                Go(SelectNextField());
+            }
+            else if (Input.GetButton("SelectRight")) {
+                yield return new WaitUntil(() => Input.GetButtonUp("SelectRight"));
+                Go(SelectPrevField());
+            }
             yield return new WaitForSeconds(1.0f);
             //when selected - use the target chooser to ask the question
         }
@@ -89,7 +100,10 @@ public class Communication : StateScript {
     private IEnumerator SpeakSentence()
     {
         //use all the currently selected pieces of the sentence to action it
-        print(questions[Mathf.Abs((questions.Count + currentIndex) % questions.Count)]);
+        print(questions[Mathf.Abs((questions.Count + currentQuestionIndex) % questions.Count)]);
+
+        ScriptFuncs.GetNearestNpc
+
         Go(MenuClosed());
         yield return 0;
     }
@@ -98,8 +112,7 @@ public class Communication : StateScript {
     {
         //for now just cycle through the names? using 'do you like'. 
         //select the new person
-        print("up");
-        currentIndex++;
+        currentQuestionIndex++;
         Go(MenuActive());
         yield return 0;
     }
@@ -107,8 +120,21 @@ public class Communication : StateScript {
     private IEnumerator CycleCurrentOptionDown()
     {
         //select the new person
-        print("down");
-        currentIndex--;
+        currentQuestionIndex--;
+        Go(MenuActive());
+        yield return 0;
+    }
+    
+    private IEnumerator SelectNextField()
+    {
+        currentNameIndex++;
+        Go(MenuActive());
+        yield return 0;
+    }
+
+    private IEnumerator SelectPrevField()
+    {
+        currentNameIndex--;
         Go(MenuActive());
         yield return 0;
     }
