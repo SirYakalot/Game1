@@ -20,6 +20,7 @@ public class StateScript : MonoBehaviour {
             updateFunc();
     }
 
+    //need to refactor this - if I wanted to add an update in a previous script, I would have to alter all the calls to Go(. so it's not good enough. 
     protected void Go(IEnumerator newStart)
     {
         if (startFunc != null)

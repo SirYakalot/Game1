@@ -25,7 +25,7 @@ public class npc : MonoBehaviour {
 
 	public void Init()
 	{
-		StartCoroutine(Interact());
+		//StartCoroutine(Interact());
 	}
 //	void OnDisable()
 //	{
@@ -38,12 +38,12 @@ public class npc : MonoBehaviour {
 		// - and call walked away from and aproached
 	}
 
-	public virtual IEnumerator Interact()
-	{
-		yield return new WaitUntil(() => justgotclicked);//the event managers func should return true or false
-        gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "I like " + friendCharacter;
+	//public virtual IEnumerator Interact()
+	//{
+	//	yield return new WaitUntil(() => justgotclicked);//the event managers func should return true or false
+ //       gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "I like " + friendCharacter;
         
-    }
+ //   }
 
 	//each one of these should be a state - update and start: so you can set little behaviours when things happen. dialogue should be a separate coroutine?
 	//

@@ -37,10 +37,12 @@ public static class ScriptFuncs
 
     // AI stuff------------------------------
 		
+    //need to find a way of making sure this is ready on the first frame?
 	public static npc GetNearestNpc()
 	{
 		npc closestNpc = null;
 		float distanceToNearestNpc = 99999.9f;
+
 
 		//work out the closest npc and 
 		foreach (npc thisNpc in Globals.allNpcs)

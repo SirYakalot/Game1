@@ -2,21 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// DEPRICATED
 public class Globals
 {
-	private static List<npc> allNpcs = new List<npc>();
+    // All NPC's are resposible for adding themselves to this global list
+	public static List<npc> allNpcs = new List<npc>();
 
 	private static GameObject player = null;
 
     public static GameObject Player
-    {
-        get
-        {
-            return (player == null) ? GameObject.Find("player") : Globals.player;
-        }
-    }
-    // I DON'T THINK WE EVEN NEED THE VARS, JUST WRAP A LOOKUP FUNC - ALSO, PROBABLY JUST PUT THIS IN SCRIPFUNCS    
-    public static GameObject AllNpcs
     {
         get
         {

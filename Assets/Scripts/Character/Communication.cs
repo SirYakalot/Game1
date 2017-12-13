@@ -6,7 +6,7 @@ public class Communication : StateScript {
 
     //[do you like] iterate through all names - do you like jack?
     private List<string> questions = new List<string>();
-    private List<string> names = new List<string>();
+    private List<npc> names = new List<npc>();
     private int currentQuestionIndex = 0;
     private int currentNameIndex = 0;
 
@@ -16,8 +16,7 @@ public class Communication : StateScript {
         questions.Add("Do you like");
         questions.Add("Have you seen");
 
-        names.Add("Ash");
-        names.Add("Steve");
+        names.AddRange(Globals.allNpcs);
 
         Go(MenuClosed());
     }
@@ -100,9 +99,11 @@ public class Communication : StateScript {
     private IEnumerator SpeakSentence()
     {
         //use all the currently selected pieces of the sentence to action it
-        print(questions[Mathf.Abs((questions.Count + currentQuestionIndex) % questions.Count)]);
+        yield return new WaitForSeconds(1.5f);
+        gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "";
 
-        ScriptFuncs.GetNearestNpc
+        yield return new WaitForSeconds(0.5f);
+        ScriptFuncs.GetNearestNpc().gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "HUZZAH";
 
         Go(MenuClosed());
         yield return 0;
