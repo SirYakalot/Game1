@@ -5,7 +5,7 @@ using UnityEngine;
 public class Communication : StateScript {
 
     //[do you like] iterate through all names - do you like jack?
-    private List<string> questions = new List<string>();
+    private List<string> questions = new List<string>();//this really needs to be a little struct that has the string and a neat way to index into the info
     private List<npc> names = new List<npc>();
     private int currentQuestionIndex = 0;
     private int currentNameIndex = 0;
@@ -14,7 +14,7 @@ public class Communication : StateScript {
 	void Start ()
     {
         questions.Add("Do you like");
-        questions.Add("Have you seen");
+        questions.Add("Do you hate");
 
         names.AddRange(Globals.allNpcs);
 
@@ -23,7 +23,6 @@ public class Communication : StateScript {
 
     private IEnumerator MenuClosed()
     {
-        print("menu closed");
         yield return new WaitUntil(() => Input.GetButtonDown("CommsMenu"));
         yield return new WaitUntil(() => Input.GetButtonUp("CommsMenu"));
         Go(OpenMenu());
@@ -33,14 +32,12 @@ public class Communication : StateScript {
     {
         // play some menu opening anim NOTE - might be nice to play this async actually... so that you can still interact with the menu while it opens
         // remember to ignore the button being held though...
-        print("menu open");
         Go(MenuActive());
         yield return 0;
     }
 
     private IEnumerator MenuActive()
     {
-        print("and active");
         gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = 
             (
                 questions[Mathf.Abs((questions.Count + currentQuestionIndex) % questions.Count)] + " " +
@@ -91,7 +88,6 @@ public class Communication : StateScript {
 
     private IEnumerator CloseMenu()
     {
-        print("closing menu");
         Go(MenuClosed());
         yield return 0;
     }
@@ -103,7 +99,22 @@ public class Communication : StateScript {
         gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "";
 
         yield return new WaitForSeconds(0.5f);
-        ScriptFuncs.GetNearestNpc().gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "HUZZAH";
+
+        npc closestNPC = ScriptFuncs.GetNearestNpc();
+        RelationshipInfo npcInfo = closestNPC.gameObject.GetComponentInChildren<RelationshipInfo>();
+        int dataIndex = npcInfo.relationshipKeys.IndexOf(names[Mathf.Abs((names.Count + currentNameIndex) % names.Count)]);
+
+        string question = questions[Mathf.Abs((questions.Count + currentQuestionIndex) % questions.Count)];
+
+        //replace this with the strcut - there's a todo note at the top of the file about it
+        if (string.Equals(question, "Do you like"))
+        {
+            closestNPC.gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = npcInfo.relationshipValues[dataIndex].Like;
+        }
+        else if (string.Equals(question, "Do you hate"))
+        {
+            closestNPC.gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = npcInfo.relationshipValues[dataIndex].Hate;
+        }
 
         Go(MenuClosed());
         yield return 0;
