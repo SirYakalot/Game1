@@ -47,9 +47,7 @@ public class Controller : MonoBehaviour
                     m_State = MovementState.falling;
                 break;
             case MovementState.jumping:
-                   //controller doesn't rotate in the air, should skid out if there's a lot of forward momenntum
-
-                PlayerMove(0.2f);
+                //controller doesn't rotate in the air, should skid out if there's a lot of forward momenntum
 
                 jumpPhase += Time.deltaTime * jumpSpeed;
                 // float currentPos = transform.position.y - jumpOffPoint;
