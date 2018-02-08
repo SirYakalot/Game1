@@ -14,7 +14,15 @@ public class Globals
     {
         get
         {
-            return (player == null) ? GameObject.Find("player") : Globals.player;
+            if (player == null)
+            {
+                player = GameObject.Find("Player");
+                return player;
+            }
+            else
+            {
+                return Globals.player;
+            }
         }
     }
 }

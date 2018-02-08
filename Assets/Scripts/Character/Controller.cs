@@ -10,10 +10,13 @@ public class Controller : MonoBehaviour
 	public float jumpSpeed = 1.0F;
 	public float gravity = 20.0F;
 	public AnimationCurve jumpCurve;
-    public Transform m_Camera; 
+    public Transform m_Camera;
+
+    [SerializeField] public bool m_RotationControlWhileJumping = false;
 
     private Vector3 moveDirection = Vector3.zero;
-	private float jumpPhase = 0.0f;
+    private Vector3 storedDirection = Vector3.zero;
+    private float jumpPhase = 0.0f;
 
 	public enum MovementState
 	{
@@ -49,6 +52,14 @@ public class Controller : MonoBehaviour
             case MovementState.jumping:
                 //controller doesn't rotate in the air, should skid out if there's a lot of forward momenntum
 
+                if (m_RotationControlWhileJumping)
+                {
+                    moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+                    moveDirection = Quaternion.LookRotation(ScriptFuncs.FlattenY(m_Camera.transform.forward)) * moveDirection;
+
+                    moveDirection *= (speed * 1.0f);
+                }
+                
                 jumpPhase += Time.deltaTime * jumpSpeed;
                 // float currentPos = transform.position.y - jumpOffPoint;
                 float nextPos = jumpOffPoint + jumpCurve.Evaluate(jumpPhase);
