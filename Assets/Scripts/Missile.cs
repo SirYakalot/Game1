@@ -16,6 +16,8 @@ public class Missile : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+
         Vector3 toTarget = (Globals.Player.transform.position - transform.position).normalized;
         
         velocity = Vector3.RotateTowards(velocity, toTarget, maxRads * Time.deltaTime, 0.0f);
@@ -23,4 +25,9 @@ public class Missile : MonoBehaviour {
         transform.position += velocity * Time.deltaTime * speed;
         transform.rotation = Quaternion.LookRotation(velocity);
 	}
+
+    void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+    }
 }

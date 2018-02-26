@@ -75,16 +75,24 @@ namespace UnityStandardAssets.Cameras
                 return;
 
             //// Read the user input
-            //var x = CrossPlatformInputManager.GetAxis("Mouse X");
             var y = CrossPlatformInputManager.GetAxis("Mouse Y");
 
-            //// Adjust the look angle by an amount proportional to the turn speed and horizontal input.
-            //m_LookAngle += x * m_TurnSpeed;
+            if (!m_CamLookAtMode)
+            {
+                var x = CrossPlatformInputManager.GetAxis("Mouse X");
 
-            //// Rotate the rig (the root object) around Y axis only:
-            //m_TransformTargetRot = Quaternion.Euler(0f, m_LookAngle, 0f);
+                //// Adjust the look angle by an amount proportional to the turn speed and horizontal input.
+                m_LookAngle += x * m_TurnSpeed;
 
-            m_TransformTargetRot = Quaternion.LookRotation(m_CamLookAtTarget.position - m_Target.position);
+                //// Rotate the rig (the root object) around Y axis only:
+                m_TransformTargetRot = Quaternion.Euler(0f, m_LookAngle, 0f);
+            }
+            else
+            {
+                m_TransformTargetRot = Quaternion.LookRotation(m_CamLookAtTarget.position - m_Target.position);
+            }
+
+               
 
             if (m_VerticalAutoReturn)
             {

@@ -12,7 +12,21 @@ public class Launcher : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-		
-	}
+    void Update() {
+
+    }
+
+    //need to turn this into a coroutine friendly function - so you can wait 5, then wait-until (on-collision
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "Player")
+        {
+            Destroy(collision.gameObject);
+        }
+        // Debug-draw all contact points and normals
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            Debug.DrawRay(contact.point, contact.normal, Color.white);
+        }
+    }
 }

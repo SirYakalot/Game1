@@ -95,7 +95,6 @@ public class Communication : StateScript {
     private IEnumerator SpeakSentence()
     {
         //use all the currently selected pieces of the sentence to action it
-        yield return new WaitForSeconds(1.5f);
         gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = "";
 
         yield return new WaitForSeconds(0.5f);
