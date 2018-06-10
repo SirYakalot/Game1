@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public static class ScriptFuncs
 {
@@ -56,4 +57,9 @@ public static class ScriptFuncs
 		}
 		return closestNpc;
 	}
+
+    public static bool AgentReachedDestination(NavMeshAgent agent)
+    {
+        return !agent.pathPending && agent.remainingDistance < (0.5f + agent.stoppingDistance);
+    }
 }

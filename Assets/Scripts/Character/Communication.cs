@@ -115,6 +115,8 @@ public class Communication : StateScript {
             closestNPC.gameObject.GetComponentInChildren<UnityEngine.UI.Text>().text = npcInfo.relationshipValues[dataIndex].Hate;
         }
 
+        closestNPC.gameObject.GetComponentInChildren<NPCController>().Interrupt(this.transform);
+
         Go(MenuClosed());
         yield return 0;
     }

@@ -113,7 +113,7 @@ public class SpiderPulse : MonoBehaviour {
         
         while (true)
         {
-            int linkCount = Random.Range(10, maxWebLinks);
+            int linkCount = Random.Range(20, maxWebLinks);
             while (linkCount > 0)
             {
                 ExpandIntoAdjacent();
