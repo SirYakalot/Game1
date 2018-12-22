@@ -12,7 +12,7 @@ public class StateScript : MonoBehaviour {
     //modify so that start is guaranteed to run for one frame before update kicks in. 
 	// do we really need these? 
 	UpdateFunc updateFunc;
-	protected IEnumerator startFunc;
+	protected Coroutine startFunc;
 	
 	void Update () 
 	{
@@ -23,11 +23,16 @@ public class StateScript : MonoBehaviour {
     //need to refactor this - if I wanted to add an update in a previous script, I would have to alter all the calls to Go(. so it's not good enough. 
     protected void Go(IEnumerator newStart)
     {
+        
         if (startFunc != null)
+        {   
+            //print("stopped" + startFunc.ToString());
             StopCoroutine(startFunc);
+        }
 
-        startFunc = newStart;
-        StartCoroutine(newStart);
+        startFunc = null;
+        startFunc = StartCoroutine(newStart);
+       // print("started" + startFunc.ToString());
 
         updateFunc = null;
     }
@@ -37,8 +42,7 @@ public class StateScript : MonoBehaviour {
         if (startFunc != null)
             StopCoroutine(startFunc);
 
-        startFunc = newStart;
-        StartCoroutine(newStart);
+        startFunc = StartCoroutine(newStart);
 
         updateFunc = newUpdate;
     }

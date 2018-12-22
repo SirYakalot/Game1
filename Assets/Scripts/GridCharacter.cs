@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GridCharacter : MonoBehaviour {
 
-    private int gridX;
-    private int gridZ;
+    public int gridX;
+    public int gridZ;
 
 	// Use this for initialization
 	void Start () {

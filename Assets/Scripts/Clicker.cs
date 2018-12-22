@@ -22,6 +22,7 @@ public class Clicker : StateScript {
             print(hit.collider.name);
             thingClicked = hit.collider;
             Go(PlaceObjectStart());
+            yield break;
         }
 
         // if nothing was selected, restart the state
@@ -30,6 +31,7 @@ public class Clicker : StateScript {
 
     private IEnumerator PlaceObjectStart()
     {
+        yield return new WaitUntil(() => Input.GetButtonUp("Fire1"));
         yield return new WaitUntil(() => Input.GetButtonDown("Fire1"));
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -46,7 +48,9 @@ public class Clicker : StateScript {
             // localScale should be stored in the grid char and accessed. 
             thingClicked.transform.position = new Vector3(Mathf.RoundToInt(hit.point.x), thingClicked.transform.localScale.y * 0.5f, Mathf.RoundToInt(hit.point.z));
             thingClicked = null;
+            yield return new WaitUntil(() => Input.GetButtonUp("Fire1"));
             Go(NothingSelectedStart());
+            yield break;
         }
 
         // if nothing was selected, restart the state
