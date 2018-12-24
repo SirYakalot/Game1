@@ -5,6 +5,7 @@ using UnityEngine;
 public class Clicker : StateScript {
 
     private Collider thingClicked = null;
+    public GameGrid GameGridInstance;
 
     // Use this for initialization
     void Start () {
@@ -17,7 +18,7 @@ public class Clicker : StateScript {
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit) && hit.collider.name != "Plane")//really replace this with some tag check
+        if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.GetComponent<GridCharacter>() != null)) //really replace this with some tag check
         {
             //print(hit.collider.name);
             thingClicked = hit.collider;
@@ -31,19 +32,16 @@ public class Clicker : StateScript {
 
     private IEnumerator PlaceObjectStart()
     {
+        GameGridInstance.DisplayInfluence(thingClicked.gameObject.GetComponent<GridCharacter>());
+
         thingClicked.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
         yield return new WaitUntil(() => Input.GetButtonUp("Fire1"));
         yield return new WaitUntil(() => Input.GetButtonDown("Fire1"));
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit) && hit.collider.name == "Plane")
+        if (Physics.Raycast(ray, out hit) && hit.collider.name == "Capsule")
         {
-            
-            // print(hit.point.x + " " + hit.point.z);
-            
-            // print(Mathf.RoundToInt(hit.point.x) + " " + Mathf.RoundToInt(hit.point.z));
-
             // move the object
 
             // localScale should be stored in the grid char and accessed. 

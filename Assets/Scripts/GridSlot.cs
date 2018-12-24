@@ -5,7 +5,7 @@ using UnityEngine;
 public class GridSlot
 {
     public GridCharacter gridChar = null;
-    private GameObject floorPiece; 
+    public GameObject floorPiece; 
 
     // Start is called before the first frame update
     public void Initialise(Vector3 position)

@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameGrid : MonoBehaviour
 {
     private List<List<GridSlot>> gridIndexes = new List<List<GridSlot>>();
+    public Material baseMaterial;
+    public Material influenceMaterial;
     // provide a function that lets you input a grid index, and get back 
     // neighbours
     
@@ -13,7 +15,7 @@ public class GameGrid : MonoBehaviour
     void Start () 
     {
         int gridSizeX = 10;
-        int gridSizeZ = 10;
+        int gridSizeZ = 20;
 
         for (int x = 0; x < gridSizeX; x++)
         {
@@ -46,5 +48,42 @@ public class GameGrid : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void DisplayInfluence(GridCharacter character)
+    {
+        List<GridSlot> slots = GetInfluence(character);
+
+        foreach (GridSlot slot in slots)
+        {
+            Renderer r = slot.floorPiece.GetComponent<Renderer>();
+            r.material = influenceMaterial;
+        }
+    }
+
+    public List<GridSlot> GetInfluence(GridCharacter character)
+    {
+        int x = character.gridX;
+        int z = character.gridZ;
+
+        Vector3 charPos = character.transform.position;
+        List<GridSlot> slotsInInfluence = new List<GridSlot>();
+
+        // there's gotta be a better way to do this..
+        foreach (List<GridSlot> slotList in gridIndexes)
+        {
+            foreach (GridSlot slot in slotList)
+            {
+                
+                Vector3 slotPos = slot.floorPiece.transform.position;
+
+                if (Vector3.Distance(charPos, slotPos) <= character.gridInfluence)
+                {
+                    slotsInInfluence.Add(slot);
+                }
+            }
+        }
+
+        return slotsInInfluence;
     }
 }

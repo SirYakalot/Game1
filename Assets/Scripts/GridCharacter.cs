@@ -7,6 +7,8 @@ public class GridCharacter : MonoBehaviour {
     public int gridX;
     public int gridZ;
 
+    public int gridInfluence = 3;
+
 	// Use this for initialization
 	void Start () {
         gridX = (int)transform.position.x;
