@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameGrid : MonoBehaviour
 {
-    private List<List<GridCharacter>> gridIndexes = new List<List<GridCharacter>>();
+    private List<List<GridSlot>> gridIndexes = new List<List<GridSlot>>();
     // provide a function that lets you input a grid index, and get back 
     // neighbours
     
@@ -12,24 +12,33 @@ public class GameGrid : MonoBehaviour
     // how do you define influence shapes? dunno. doitinabit
     void Start () 
     {
-        for (int x = 0; x < 10; x++)
+        int gridSizeX = 10;
+        int gridSizeZ = 10;
+
+        for (int x = 0; x < gridSizeX; x++)
         {
-            gridIndexes.Add(new List<GridCharacter>());
-            for (int z = 0; z < 10; z++)
+            gridIndexes.Add(new List<GridSlot>());
+            for (int z = 0; z < gridSizeZ; z++)
             {
-                gridIndexes[x].Add(null);
+                float newX = (x - (gridSizeX / 2));
+                float newZ = (z - (gridSizeZ / 2));
+
+                gridIndexes[x].Add(new GridSlot());
+                gridIndexes[x][z].Initialise(new Vector3(newX, 0, newZ));
             }
         }
     }
-    public bool IsImmediateNeighbour(GridCharacter character, GridCharacter target)
+    
+    // you know what would be LESS SHIT than this? each slot keeping references to their neighbours
+    public bool IsImmediateNeighbour(GridSlot character, GridSlot target)
     {
-        if ((character.gridX == target.gridX) && 
-            ((character.gridZ == target.gridZ - 1) || (character.gridZ == target.gridZ + 1)))
+        if ((character.gridChar.gridX == target.gridChar.gridX) && 
+            ((character.gridChar.gridZ == target.gridChar.gridZ - 1) || (character.gridChar.gridZ == target.gridChar.gridZ + 1)))
         {
             return true;
         }
-        else if ((character.gridZ == target.gridZ) && 
-            ((character.gridX == target.gridX - 1) || (character.gridX == target.gridX + 1)))
+        else if ((character.gridChar.gridZ == target.gridChar.gridZ) && 
+            ((character.gridChar.gridX == target.gridChar.gridX - 1) || (character.gridChar.gridX == target.gridChar.gridX + 1)))
         {
             return true;
         }

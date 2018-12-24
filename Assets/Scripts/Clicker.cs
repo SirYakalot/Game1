@@ -19,7 +19,7 @@ public class Clicker : StateScript {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit) && hit.collider.name != "Plane")//really replace this with some tag check
         {
-            print(hit.collider.name);
+            //print(hit.collider.name);
             thingClicked = hit.collider;
             Go(PlaceObjectStart());
             yield break;
@@ -31,6 +31,7 @@ public class Clicker : StateScript {
 
     private IEnumerator PlaceObjectStart()
     {
+        thingClicked.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
         yield return new WaitUntil(() => Input.GetButtonUp("Fire1"));
         yield return new WaitUntil(() => Input.GetButtonDown("Fire1"));
 
@@ -39,14 +40,15 @@ public class Clicker : StateScript {
         if (Physics.Raycast(ray, out hit) && hit.collider.name == "Plane")
         {
             
-            print(hit.point.x + " " + hit.point.z);
+            // print(hit.point.x + " " + hit.point.z);
             
-            print(Mathf.RoundToInt(hit.point.x) + " " + Mathf.RoundToInt(hit.point.z));
+            // print(Mathf.RoundToInt(hit.point.x) + " " + Mathf.RoundToInt(hit.point.z));
 
             // move the object
 
             // localScale should be stored in the grid char and accessed. 
             thingClicked.transform.position = new Vector3(Mathf.RoundToInt(hit.point.x), thingClicked.transform.localScale.y * 0.5f, Mathf.RoundToInt(hit.point.z));
+            thingClicked.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             thingClicked = null;
             yield return new WaitUntil(() => Input.GetButtonUp("Fire1"));
             Go(NothingSelectedStart());
