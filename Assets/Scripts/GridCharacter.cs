@@ -8,6 +8,8 @@ public class GridCharacter : MonoBehaviour {
     public int gridZ;
 
     public int gridInfluence = 3;
+    public int health = -1;
+    public int attack = -1;
     private bool usedThisTurn = false;
     // -1 is ai control
     public int teamIndex = -1;

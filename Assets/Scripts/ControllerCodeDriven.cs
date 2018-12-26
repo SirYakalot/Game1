@@ -22,13 +22,13 @@ public class ControllerCodeDriven : StateScript
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        Go(FallingStart());//, FallingUpdate());
+        Go(FallingStart(), null);//, FallingUpdate());
     }
 
     private IEnumerator FallingStart()
     {
         yield return new WaitUntil(() => controller.isGrounded);
-        Go(GroundedUpdate);
+        Go(null, GroundedUpdate);
     }
 
     // private IEnumerator FallingUpdate()
@@ -53,7 +53,7 @@ public class ControllerCodeDriven : StateScript
     {
         if (!controller.isGrounded)
         {
-            Go(FallingStart());
+            Go(FallingStart(), null);
         }
         else if (Input.GetButton("Jump"))
         {
@@ -70,7 +70,7 @@ public class ControllerCodeDriven : StateScript
     private IEnumerator JumpingStart()
     {
         yield return new WaitUntil(() => !Input.GetButton("Jump"));
-        Go(FallingStart());
+        Go(FallingStart(), null);
     }
 
     private void JumpingUpdate()

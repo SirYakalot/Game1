@@ -9,7 +9,7 @@ public class Clicker : StateScript {
 
     // Use this for initialization
     void Start () {
-		Go(NothingSelectedStart());
+		Go(NothingSelectedStart(), null);
 	}
     
     private IEnumerator NothingSelectedStart()
@@ -25,12 +25,12 @@ public class Clicker : StateScript {
         {
             //print(hit.collider.name);
             thingClicked = hit.collider;
-            Go(PlaceObjectStart());
+            Go(PlaceObjectStart(), null);
             yield break;
         }
 
         // if nothing was selected, restart the state
-        Go(NothingSelectedStart());
+        Go(NothingSelectedStart(), null);
     }
 
     private IEnumerator PlaceObjectStart()
@@ -60,7 +60,7 @@ public class Clicker : StateScript {
 
             thingClicked = null;
             yield return new WaitUntil(() => Input.GetButtonUp("Fire1"));
-            Go(NothingSelectedStart());
+            Go(NothingSelectedStart(), null);
             yield break;
         }
         else if (Physics.Raycast(ray, out hit) && 
@@ -72,11 +72,11 @@ public class Clicker : StateScript {
             thingClicked.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             thingClicked = hit.collider;
             
-            Go(PlaceObjectStart());
+            Go(PlaceObjectStart(), null);
             yield break;
         }
 
         // if nothing was selected, restart the state
-        Go(PlaceObjectStart());
+        Go(PlaceObjectStart(), null);
     }
 }

@@ -18,21 +18,21 @@ public class Communication : StateScript {
 
         names.AddRange(Globals.allNpcs);
 
-        Go(MenuClosed());
+        Go(MenuClosed(), null);
     }
 
     private IEnumerator MenuClosed()
     {
         yield return new WaitUntil(() => Input.GetButtonDown("CommsMenu"));
         yield return new WaitUntil(() => Input.GetButtonUp("CommsMenu"));
-        Go(OpenMenu());
+        Go(OpenMenu(), null);
     }
 
     private IEnumerator OpenMenu()
     {
         // play some menu opening anim NOTE - might be nice to play this async actually... so that you can still interact with the menu while it opens
         // remember to ignore the button being held though...
-        Go(MenuActive());
+        Go(MenuActive(), null);
         yield return 0;
     }
 
@@ -56,30 +56,30 @@ public class Communication : StateScript {
             if (Input.GetButton("CommsMenu"))
             {
                 yield return new WaitUntil(() => Input.GetButtonUp("CommsMenu"));
-                Go(CloseMenu());
+                Go(CloseMenu(), null);
             }
             else if (Input.GetButton("Select"))
             {
                 yield return new WaitUntil(() => Input.GetButtonUp("Select"));
-                Go(SpeakSentence());
+                Go(SpeakSentence(), null);
             }
             else if (Input.GetButton("SelectUp"))
             {
                 yield return new WaitUntil(() => Input.GetButtonUp("SelectUp"));
-                Go(CycleCurrentOptionUp());
+                Go(CycleCurrentOptionUp(), null);
             }
             else if (Input.GetButton("SelectDown"))
             {
                 yield return new WaitUntil(() => Input.GetButtonUp("SelectDown"));
-                Go(CycleCurrentOptionDown());
+                Go(CycleCurrentOptionDown(), null);
             }
             else if (Input.GetButton("SelectLeft")) {
                 yield return new WaitUntil(() => Input.GetButtonUp("SelectLeft"));
-                Go(SelectNextField());
+                Go(SelectNextField(), null);
             }
             else if (Input.GetButton("SelectRight")) {
                 yield return new WaitUntil(() => Input.GetButtonUp("SelectRight"));
-                Go(SelectPrevField());
+                Go(SelectPrevField(), null);
             }
             yield return new WaitForSeconds(1.0f);
             //when selected - use the target chooser to ask the question
@@ -88,7 +88,7 @@ public class Communication : StateScript {
 
     private IEnumerator CloseMenu()
     {
-        Go(MenuClosed());
+        Go(MenuClosed(), null);
         yield return 0;
     }
 
@@ -117,7 +117,7 @@ public class Communication : StateScript {
 
         closestNPC.gameObject.GetComponentInChildren<NPCController>().Interrupt(this.transform);
 
-        Go(MenuClosed());
+        Go(MenuClosed(), null);
         yield return 0;
     }
 
@@ -126,7 +126,7 @@ public class Communication : StateScript {
         //for now just cycle through the names? using 'do you like'. 
         //select the new person
         currentQuestionIndex++;
-        Go(MenuActive());
+        Go(MenuActive(), null);
         yield return 0;
     }
 
@@ -134,21 +134,21 @@ public class Communication : StateScript {
     {
         //select the new person
         currentQuestionIndex--;
-        Go(MenuActive());
+        Go(MenuActive(), null);
         yield return 0;
     }
     
     private IEnumerator SelectNextField()
     {
         currentNameIndex++;
-        Go(MenuActive());
+        Go(MenuActive(), null);
         yield return 0;
     }
 
     private IEnumerator SelectPrevField()
     {
         currentNameIndex--;
-        Go(MenuActive());
+        Go(MenuActive(), null);
         yield return 0;
     }
 }

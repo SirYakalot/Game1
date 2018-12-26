@@ -21,36 +21,12 @@ public class StateScript : MonoBehaviour {
     }
 
     //need to refactor this - if I wanted to add an update in a previous script, I would have to alter all the calls to Go(. so it's not good enough. 
-    protected void Go(IEnumerator newStart)
-    {
-        
-        if (startFunc != null)
-        {   
-            //print("stopped" + startFunc.ToString());
-            StopCoroutine(startFunc);
-        }
-
-        startFunc = null;
-        startFunc = StartCoroutine(newStart);
-       // print("started" + startFunc.ToString());
-
-        updateFunc = null;
-    }
-
     protected void Go(IEnumerator newStart, UpdateFunc newUpdate)
     {
         if (startFunc != null)
             StopCoroutine(startFunc);
 
         startFunc = StartCoroutine(newStart);
-
-        updateFunc = newUpdate;
-    }
-
-    protected void Go(UpdateFunc newUpdate)
-    {
-        if (startFunc != null)
-            StopCoroutine(startFunc);
 
         updateFunc = newUpdate;
     }
