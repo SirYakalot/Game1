@@ -8,6 +8,10 @@ public class GridCharacter : MonoBehaviour {
     public int gridZ;
 
     public int gridInfluence = 3;
+    private bool usedThisTurn = false;
+    // -1 is ai control
+    public int teamIndex = -1;
+    public bool UsedThisTurn { get; set; }
 
 	// Use this for initialization
 	void Start () {

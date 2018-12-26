@@ -18,7 +18,10 @@ public class Clicker : StateScript {
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit) && (hit.collider.gameObject.GetComponent<GridCharacter>() != null)) //really replace this with some tag check
+        if (Physics.Raycast(ray, out hit) && 
+            hit.collider.gameObject.GetComponent<GridCharacter>() != null &&
+            hit.collider.gameObject.GetComponent<GridCharacter>().UsedThisTurn != true &&
+            hit.collider.gameObject.GetComponent<GridCharacter>().teamIndex != -1)//really replace this with some tag check
         {
             //print(hit.collider.name);
             thingClicked = hit.collider;
@@ -48,10 +51,28 @@ public class Clicker : StateScript {
 
             // localScale should be stored in the grid char and accessed. 
             thingClicked.transform.position = new Vector3(Mathf.RoundToInt(hit.point.x), thingClicked.transform.localScale.y * 0.5f, Mathf.RoundToInt(hit.point.z));
-            thingClicked.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            
+
+            // this should all be wrappd in a gridchar func really...
+            thingClicked.gameObject.GetComponent<GridCharacter>().UsedThisTurn = true;
+            thingClicked.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+
+
             thingClicked = null;
             yield return new WaitUntil(() => Input.GetButtonUp("Fire1"));
             Go(NothingSelectedStart());
+            yield break;
+        }
+        else if (Physics.Raycast(ray, out hit) && 
+            hit.collider.gameObject.GetComponent<GridCharacter>() != null &&
+            hit.collider.gameObject.GetComponent<GridCharacter>().UsedThisTurn != true &&
+            hit.collider.gameObject.GetComponent<GridCharacter>().teamIndex != -1)//really replace this with some tag check
+        {
+            //print(hit.collider.name);
+            thingClicked.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            thingClicked = hit.collider;
+            
+            Go(PlaceObjectStart());
             yield break;
         }
 
