@@ -40,8 +40,10 @@ public class Clicker : StateScript {
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit) && hit.collider.name == "Capsule")
+        if ((Physics.Raycast(ray, out hit) && hit.collider.gameObject.GetComponent<GridSlot>() &&
+            GameGridInstance.IsSlotInInfluence(hit.collider.gameObject.GetComponent<GridSlot>(), thingClicked.gameObject.GetComponent<GridCharacter>())))
         {
+            GameGridInstance.ClearAllInfluence();
             // move the object
 
             // localScale should be stored in the grid char and accessed. 
