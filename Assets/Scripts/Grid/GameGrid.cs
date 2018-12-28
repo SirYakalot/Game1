@@ -15,8 +15,8 @@ public class GameGrid : MonoBehaviour
     // how do you define influence shapes? dunno. doitinabit
     void Start () 
     {
-        int gridSizeX = 10;
-        int gridSizeZ = 20;
+        int gridSizeX = 8;
+        int gridSizeZ = 15;
 
         for (int x = 0; x < gridSizeX; x++)
         {
