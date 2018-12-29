@@ -23,7 +23,7 @@ public class Clicker : StateScript {
             hit.collider.gameObject.GetComponent<GridCharacter>().UsedThisTurn != true &&
             hit.collider.gameObject.GetComponent<GridCharacter>().teamIndex != -1)//really replace this with some tag check
         {
-            //print(hit.collider.name);
+            print(hit.collider.name);
             thingClicked = hit.collider;
             Go(PlaceObjectStart(), null);
             yield break;
