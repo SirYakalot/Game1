@@ -18,19 +18,33 @@ public class Clicker : StateScript {
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+
+        // print(hit.collider.name);
+
         if (Physics.Raycast(ray, out hit) && 
             hit.collider.gameObject.GetComponent<GridCharacter>() != null &&
             hit.collider.gameObject.GetComponent<GridCharacter>().UsedThisTurn != true &&
-            hit.collider.gameObject.GetComponent<GridCharacter>().teamIndex != -1)//really replace this with some tag check
+            hit.collider.gameObject.GetComponent<GridCharacter>().teamIndex != -1)
         {
-            print(hit.collider.name);
             thingClicked = hit.collider;
             Go(PlaceObjectStart(), null);
+            yield break;
+        }
+        else if (Physics.Raycast(ray, out hit) && 
+            hit.collider.gameObject.GetComponent<Card>() != null)
+        {
+            thingClicked = hit.collider;
+            Go(SelectedCardStart(), null);
             yield break;
         }
 
         // if nothing was selected, restart the state
         Go(NothingSelectedStart(), null);
+    }
+
+    private IEnumerator SelectedCardStart()
+    {
+        //implement this some other time
     }
 
     private IEnumerator PlaceObjectStart()
