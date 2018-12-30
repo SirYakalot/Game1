@@ -5,6 +5,7 @@ using UnityEngine;
 public class Clicker : StateScript {
 
     private Collider thingClicked = null;
+    private Card cardClicked = null;
     public GameGrid GameGridInstance;
 
     // Use this for initialization
@@ -34,6 +35,7 @@ public class Clicker : StateScript {
             hit.collider.gameObject.GetComponent<Card>() != null)
         {
             thingClicked = hit.collider;
+            cardClicked = hit.collider.gameObject.GetComponent<Card>();
             Go(SelectedCardStart(), null);
             yield break;
         }
@@ -44,7 +46,60 @@ public class Clicker : StateScript {
 
     private IEnumerator SelectedCardStart()
     {
-        //implement this some other time
+        yield return new WaitUntil(() => Input.GetButtonDown("Fire1"));
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        // print(hit.collider.name);
+
+        if (Physics.Raycast(ray, out hit) && 
+            hit.collider.gameObject.GetComponent<GridCharacter>() == null &&
+            thingClicked.gameObject.GetComponent<Card>().IsSpawnCard)
+        {
+            Go(CardActionOnEmptySlot(), null);
+            yield break;
+        }
+        else if (Physics.Raycast(ray, out hit) && 
+            hit.collider.gameObject.GetComponent<GridCharacter>() != null &&
+            thingClicked.gameObject.GetComponent<Card>().IsCharacterActionCard)
+        {
+            
+            Go(CardActionOnCharacter(), null);
+            yield break;
+        }
+        else if (Physics.Raycast(ray, out hit) && 
+            hit.collider.gameObject.GetComponent<Card>() != null)
+        {
+            thingClicked = hit.collider;
+            Go(SelectedCardStart(), null);
+            yield break;
+        }
+
+        // if nothing was selected, restart the state
+        Go(NothingSelectedStart(), null);
+    }
+
+    private IEnumerator CardActionOnEmptySlot()
+    {
+        //spawn card action from cardClicked on thingClicked
+        cardClicked.SpawnCharacter(thingClicked.gameObject.GetComponent<GridSlot>());
+        thingClicked = null;
+        cardClicked = null;
+        //cardClicked.Destroy();
+        Go(NothingSelectedStart(), null);
+        yield break;
+    }
+
+    private IEnumerator CardActionOnCharacter()
+    {
+        // do card action from cardClicked on thingClicked
+        cardClicked.DoAction(thingClicked.gameObject.GetComponent<GridCharacter>());
+        thingClicked = null;
+        cardClicked = null;
+        //cardClicked.Destroy();
+        Go(NothingSelectedStart(), null);
+        yield break;
     }
 
     private IEnumerator PlaceObjectStart()

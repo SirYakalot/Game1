@@ -6,14 +6,12 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private bool isCharacterActionCard = false;
+    public bool IsCharacterActionCard { get; }
+    private bool isSpawnCard = false;
+    public bool IsSpawnCard { get; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public virtual void DoAction(GridCharacter character) {}
+
+    public virtual void SpawnCharacter(GridSlot slot) {}
 }

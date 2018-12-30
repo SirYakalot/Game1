@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class NewBehaviourScript : Card
 {
-    // Start is called before the first frame update
-    // void Start()
-    // {
-    //     yield return new WaitUntil()
-    // }
-
-    // Update is called once per frame
-    void Update()
+    public override void DoAction(GridCharacter character) 
     {
-        
+
+    }
+
+    public override void SpawnCharacter(GridSlot slot) 
+    {
+
     }
 }
