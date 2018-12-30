@@ -15,6 +15,7 @@ public class Clicker : StateScript {
     
     private IEnumerator NothingSelectedStart()
     {
+        print("Nothing Selected Start");
         yield return new WaitUntil(() => Input.GetButtonDown("Fire1"));
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -46,6 +47,8 @@ public class Clicker : StateScript {
 
     private IEnumerator SelectedCardStart()
     {
+        print("Selected a card!");
+        yield return 0;
         yield return new WaitUntil(() => Input.GetButtonDown("Fire1"));
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -55,14 +58,14 @@ public class Clicker : StateScript {
 
         if (Physics.Raycast(ray, out hit) && 
             hit.collider.gameObject.GetComponent<GridCharacter>() == null &&
-            thingClicked.gameObject.GetComponent<Card>().IsSpawnCard)
+            cardClicked.gameObject.GetComponent<Card>().IsSpawnCard)
         {
             Go(CardActionOnEmptySlot(), null);
             yield break;
         }
         else if (Physics.Raycast(ray, out hit) && 
             hit.collider.gameObject.GetComponent<GridCharacter>() != null &&
-            thingClicked.gameObject.GetComponent<Card>().IsCharacterActionCard)
+            cardClicked.gameObject.GetComponent<Card>().IsCharacterActionCard)
         {
             
             Go(CardActionOnCharacter(), null);
@@ -82,6 +85,7 @@ public class Clicker : StateScript {
 
     private IEnumerator CardActionOnEmptySlot()
     {
+        print("card used on empty slot");
         //spawn card action from cardClicked on thingClicked
         cardClicked.SpawnCharacter(thingClicked.gameObject.GetComponent<GridSlot>());
         thingClicked = null;
@@ -93,6 +97,7 @@ public class Clicker : StateScript {
 
     private IEnumerator CardActionOnCharacter()
     {
+        print("card used on character");
         // do card action from cardClicked on thingClicked
         cardClicked.DoAction(thingClicked.gameObject.GetComponent<GridCharacter>());
         thingClicked = null;
@@ -104,6 +109,7 @@ public class Clicker : StateScript {
 
     private IEnumerator PlaceObjectStart()
     {
+        print("Placed object!");
         GameGridInstance.DisplayInfluence(thingClicked.gameObject.GetComponent<GridCharacter>());
 
         thingClicked.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
