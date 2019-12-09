@@ -15,8 +15,8 @@ public class TurnManager : StateScript, IPointerClickHandler
     {
         // this should all be wrappd in a gridchar func really...
         // need some grid game globals. magic lists. can't be fucked to do this right now
-        thingClicked.gameObject.GetComponent<GridCharacter>().UsedThisTurn = true;
-        thingClicked.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+        //thingClicked.gameObject.GetComponent<GridCharacter>().UsedThisTurn = true;
+        //thingClicked.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         playerTurn = true;
         turnComplete = false;
         yield return new WaitUntil(() => turnComplete);
