@@ -15,20 +15,38 @@ public class GameGrid : MonoBehaviour
     // how do you define influence shapes? dunno. doitinabit
     void Start () 
     {
-        int gridSizeX = 8;
-        int gridSizeZ = 15;
 
-        for (int x = 0; x < gridSizeX; x++)
-        {
-            gridIndexes.Add(new List<GridSlot>());
-            for (int z = 0; z < gridSizeZ; z++)
-            {
-                float newX = (x - (gridSizeX / 2));
-                float newZ = (z - (gridSizeZ / 2));
+        // start from the tile
+        GameObject start = GameObject.FindGameObjectWithTag("StartTile");
 
-                gridIndexes[x].Add(Instantiate(GridPiece, new Vector3(newX, 0, newZ), Quaternion.identity).GetComponent<GridSlot>());
-            }
-        }
+        // iterate out from the start in each direction
+        // do these need to be pre linked....?
+
+        // three options
+        // 1. link the tiles manually
+        // 2. link the tiles assuming they will be placed on a grid
+        // 3. link the tiles after they have been placed onto a grid structure that snaps in the editor. THIS ONE. 
+
+
+
+
+
+        // for (int x = 0; x < gridSizeX; x++)
+        // {
+        //     gridIndexes.Add(new List<GridSlot>());
+        //     for (int z = 0; z < gridSizeZ; z++)
+        //     {
+        //         float newX = (x - (gridSizeX / 2));
+        //         float newZ = (z - (gridSizeZ / 2));
+                
+        //         // we have to iterate through the placed nodes... start with the start piece
+        //         if (true)
+        //         {
+                    
+        //         }
+        //         gridIndexes[x].Add(Instantiate(GridPiece, new Vector3(newX, 0, newZ), Quaternion.identity).GetComponent<GridSlot>());
+        //     }
+        // }
     }
     
     // you know what would be LESS SHIT than this? each slot keeping references to their neighbours
